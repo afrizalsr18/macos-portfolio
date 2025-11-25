@@ -1,3 +1,5 @@
 import Terminal from "./Terminal";
+import Browser from "./Browser";
+import Resume from "./Resume";
 
-export default { Terminal }
+export { Terminal, Browser, Resume };

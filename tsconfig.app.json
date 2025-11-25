@@ -46,6 +46,9 @@
       "#hoc/*": [
         "src/hoc/*"
       ],
+      "#windows": [
+        "src/windows/index.ts"
+      ],
       "#windows/*": [
         "src/windows/*"
       ]
