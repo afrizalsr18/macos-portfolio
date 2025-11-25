@@ -4,9 +4,10 @@ import gsap from 'gsap'
 import { useRef } from 'react'
 import { Tooltip } from 'react-tooltip'
 import useWindowStore from '#store/window'
+import type { WindowKey } from '#store/window'
 
 const Dock = () => {
-    const {openWindow, closeWindow, windows} = useWindowStore()
+    const { openWindow, closeWindow, windows } = useWindowStore()
     const dockRef = useRef<HTMLDivElement | null>(null)
 
     useGSAP(() => {
@@ -52,20 +53,20 @@ const Dock = () => {
     }, [])
 
 
-    const toggleApp = (app: { id: string; canOpen: boolean }) => {
+    const toggleApp = (app: { id: WindowKey; canOpen: boolean }) => {
         if (!app.canOpen) return;
-        const window = windows[app.id]
+        const win = windows[app.id]
 
-        if(!window) {
+        if (!win) {
             console.error(`window not found for ${app.id}`);
-        }else {
-            openWindow(app.id);
+            return;
         }
 
-        if(window.isOpen) {
+        const isOpen = win.isOpen;
+        if (isOpen) {
             closeWindow(app.id);
         } else {
-            openWindow(app.id)
+            openWindow(app.id);
         }
         console.log(windows);
     }
@@ -83,7 +84,7 @@ const Dock = () => {
                             data-tooltip-content={name}
                             data-tooltip-delay-show={150}
                             disabled={!canOpen}
-                            onClick={() => toggleApp({ id, canOpen })}
+                            onClick={() => toggleApp({ id: id as WindowKey, canOpen })}
                         >
                             <img
                                 src={`/images/${icon}`}

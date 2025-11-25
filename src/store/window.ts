@@ -3,7 +3,7 @@ import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
 // Typed store for window management
-type WindowKey = keyof typeof WINDOW_CONFIG;
+export type WindowKey = keyof typeof WINDOW_CONFIG;
 
 type WindowState = {
     isOpen: boolean;
@@ -18,7 +18,7 @@ interface WindowStore {
     nextZIndex: number;
     openWindow: (windowKey: WindowKey, data?: unknown | null) => void;
     closeWindow: (windowKey?: WindowKey | null) => void;
-    focusWindow: (windowKey: WindowKey, data?: unknown | null) => void;
+    focusWindow: (windowKey: WindowKey) => void;
 }
 
 const useWindowStore = create<WindowStore>()(immer((set) => ({
@@ -42,7 +42,7 @@ const useWindowStore = create<WindowStore>()(immer((set) => ({
         win.data = null;
         state.nextZIndex++;
     }),
-    focusWindow: (windowKey: WindowKey, data = null) => set((state) => {
+    focusWindow: (windowKey: WindowKey) => set((state) => {
         const win = state.windows[windowKey];
         if (!win) return;
         win.zIndex = state.nextZIndex++;
