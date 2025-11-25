@@ -1,16 +1,20 @@
 {
     "compilerOptions": {
+        "ignoreDeprecations": "6.0",
         "baseUrl": ".",
         "paths": {
+            "#components": [
+                "src/components/index.ts"
+            ],
             "#components/*": [
                 "src/components/*"
             ],
-                "#constants": [
-                    "src/constants/index.ts"
-                ],
-                "#constants/*": [
-                    "src/constants/*"
-                ],
+            "#constants": [
+                "src/constants/index.ts"
+            ],
+            "#constants/*": [
+                "src/constants/*"
+            ],
             "#store/*": [
                 "src/store/*"
             ],
