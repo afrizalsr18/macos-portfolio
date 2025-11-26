@@ -6,11 +6,11 @@ const DEFAULT_LOCATION = locations.work
 
 export interface Location {
     id: number;
-    type: string;
+    type?: string;
     name: string;
     icon: string;
     kind: string;
-    children?: any[];
+    children?: Location[];
     [key: string]: any;
 }
 
