@@ -9,7 +9,7 @@ import { Search } from 'lucide-react'
 const Finder = () => {
     const { activeLocation, setActiveLocation } = useLocationStore()
     const { openWindow } = useWindowStore()
-    const openItem = (item) => {
+    const openItem = (item: Location) => {
         if (item.fileType === 'pdf') return openWindow('resume');
         if (item.kind === 'folder') return setActiveLocation(item);
         if (item.fileType === 'txt') return openWindow('txtfile', item);
@@ -58,7 +58,7 @@ const Finder = () => {
                 </div>
 
                 <ul className='content'>
-                    {activeLocation?.children.map((item) => (
+                    {activeLocation?.children?.map((item) => (
                         <li key={item.id} className={item.possition} onClick={() => openItem(item)}>
                             <img src={item.icon} alt={item.name} />
                             <p>{item.name}</p>

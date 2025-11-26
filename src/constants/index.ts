@@ -85,7 +85,15 @@ const dockApps = [
     },
 ];
 
-const blogPosts = [
+interface BlogPost {
+    id: number;
+    date: string;
+    title: string;
+    image: string;
+    link: string;
+}
+
+const blogPosts: BlogPost[] = [
     // {
     //     id: 1,
     //     date: "Sep 2, 2025",
