@@ -75,7 +75,7 @@ const createInitialState = (): GameState => ({
   status: 'menu'
 })
 
-const Space = () => {
+const BugSquasher = () => {
   const [gameState, setGameState] = useState<GameState>(createInitialState)
   const [highScore, setHighScore] = useState(0)
 
@@ -489,7 +489,7 @@ const Space = () => {
   return (
     <>
       <div id="window-header">
-        <WindowControls target='space' />
+        <WindowControls target='BugSquasher' />
         <h2>Bug Squasher</h2>
       </div>
       <div style={{
@@ -829,5 +829,5 @@ const Space = () => {
   )
 }
 
-const SpaceWindow = WindowWrapper(Space, 'space')
-export default SpaceWindow
+const BugSquasherWindow = WindowWrapper(BugSquasher, 'BugSquasher')
+export default BugSquasherWindow

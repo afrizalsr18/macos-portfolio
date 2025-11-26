@@ -1,7 +1,7 @@
 import { Navbar, Dock } from '#components';
 import { Draggable } from 'gsap/Draggable';
 import gsap from 'gsap';
-import { Terminal, Browser, Resume, Finder, Space } from '#windows';
+import { Terminal, Browser, Resume, Finder, BugSquasher, Text, Image, Contact } from '#windows';
 import { useDarkMode } from './hooks/useDarkMode';
 
 gsap.registerPlugin(Draggable)
@@ -19,7 +19,10 @@ export const App = () => {
       <Browser />
       <Resume />
       <Finder />
-      <Space />
+      <BugSquasher />
+      <Text />
+      <Image />
+      <Contact />
     </main>
   )
 }
