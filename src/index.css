@@ -7,7 +7,7 @@ body {
     width: 100dvw;
     overflow: hidden;
     height: 100dvh;
-    background-image: url("/images/wallpaper.png");
+    background-image: url("/images/wallpaper2.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -17,6 +17,68 @@ body {
     --font-georama: "Georama", sans-serif;
     --font-roboto: "Roboto Mono", monospace;
     --breakpoint-3xl: 1920px;
+}
+
+/* GNOME-style Dark Mode Variables */
+:root {
+    /* Light mode (default) - GNOME Adwaita theme */
+    --bg-nav: rgba(250, 250, 250, 0.95);
+    --bg-window: rgb(255, 255, 255);
+    --bg-sidebar: rgb(246, 245, 244);
+    --bg-headerbar: rgb(235, 235, 235);
+    --bg-gray-light: rgb(246, 245, 244);
+    --bg-gray-medium: rgb(220, 218, 216);
+    --text-primary: rgb(36, 31, 28);
+    --text-secondary: rgb(94, 92, 100);
+    --text-tertiary: rgb(119, 118, 123);
+    --border-color: rgba(0, 0, 0, 0.15);
+    --hover-bg: rgba(0, 0, 0, 0.05);
+    --icon-hover-bg: rgba(0, 0, 0, 0.08);
+    --accent-color: rgb(53, 132, 228);
+    --accent-hover: rgb(26, 95, 180);
+    --window-shadow: 0 3px 9px 1px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.1);
+    --button-radius: 6px;
+    --window-radius: 12px;
+}
+
+/* Dark mode - system preference - GNOME Dark theme */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --bg-nav: rgba(36, 36, 36, 0.95);
+        --bg-window: rgb(36, 36, 36);
+        --bg-sidebar: rgb(48, 48, 48);
+        --bg-headerbar: rgb(48, 48, 48);
+        --bg-gray-light: rgb(48, 48, 48);
+        --bg-gray-medium: rgb(60, 60, 60);
+        --text-primary: rgb(255, 255, 255);
+        --text-secondary: rgb(218, 218, 218);
+        --text-tertiary: rgb(154, 153, 150);
+        --border-color: rgba(255, 255, 255, 0.12);
+        --hover-bg: rgba(255, 255, 255, 0.07);
+        --icon-hover-bg: rgba(255, 255, 255, 0.1);
+        --accent-color: rgb(99, 162, 255);
+        --accent-hover: rgb(134, 182, 255);
+        --window-shadow: 0 4px 12px 2px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.8);
+    }
+}
+
+/* Dark mode - manual toggle - GNOME Dark theme */
+[data-theme="dark"] {
+    --bg-nav: rgba(36, 36, 36, 0.95);
+    --bg-window: rgb(36, 36, 36);
+    --bg-sidebar: rgb(48, 48, 48);
+    --bg-headerbar: rgb(48, 48, 48);
+    --bg-gray-light: rgb(48, 48, 48);
+    --bg-gray-medium: rgb(60, 60, 60);
+    --text-primary: rgb(255, 255, 255);
+    --text-secondary: rgb(218, 218, 218);
+    --text-tertiary: rgb(154, 153, 150);
+    --border-color: rgba(255, 255, 255, 0.12);
+    --hover-bg: rgba(255, 255, 255, 0.07);
+    --icon-hover-bg: rgba(255, 255, 255, 0.1);
+    --accent-color: rgb(99, 162, 255);
+    --accent-hover: rgb(134, 182, 255);
+    --window-shadow: 0 4px 12px 2px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.8);
 }
 
 @utility flex-center {
@@ -37,10 +99,14 @@ body {
     }
 
     nav {
-        @apply flex justify-between items-center bg-white/50 backdrop-blur-3xl p-2 px-5 select-none;
+        @apply flex justify-between items-center backdrop-blur-xl px-4 select-none;
+        background-color: var(--bg-headerbar);
+        border-bottom: 1px solid var(--border-color);
+        height: 42px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
         div {
-            @apply flex items-center max-sm:w-full max-sm:justify-center gap-5;
+            @apply flex items-center max-sm:w-full max-sm:justify-center gap-4;
 
             &:last-child {
                 @apply max-sm:hidden;
@@ -48,22 +114,33 @@ body {
         }
 
         ul {
-            @apply flex items-center gap-5 max-sm:hidden;
+            @apply flex items-center gap-2 max-sm:hidden;
 
             p {
-                @apply text-sm cursor-pointer hover:underline transition-all;
+                @apply text-sm font-medium cursor-pointer transition-all px-3 py-1.5 rounded;
+                color: var(--text-primary);
+
+                &:hover {
+                    background-color: var(--hover-bg);
+                }
             }
         }
 
         time {
-            @apply text-sm font-medium text-black;
+            @apply text-sm font-medium;
+            color: var(--text-primary);
         }
     }
 }
 
 @layer components {
     .icon {
-        @apply p-1 hover:bg-gray-200 rounded hover:cursor-default;
+        @apply p-2 hover:cursor-default transition-all;
+        border-radius: var(--button-radius);
+
+        &:hover {
+            background-color: var(--icon-hover-bg);
+        }
     }
 
     #welcome {
@@ -79,18 +156,35 @@ body {
     }
 
     #dock {
-        @apply absolute bottom-5 left-1/2 -translate-x-1/2 z-50 select-none max-sm:hidden;
+        @apply absolute left-1/2 -translate-x-1/2 z-50 select-none max-sm:hidden;
+        bottom: 8px;
 
         .dock-container {
-            @apply bg-white/20 backdrop-blur-md justify-between rounded-2xl p-1.5 flex items-end gap-1.5;
+            @apply backdrop-blur-xl justify-center flex items-end gap-2;
+            background-color: var(--bg-headerbar);
+            border: 1px solid var(--border-color);
+            border-radius: var(--window-radius);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+            padding: 8px 12px;
         }
 
         .tooltip {
-            @apply !py-1 !px-3 !w-fit !text-center !text-xs !rounded-md !bg-blue-200 !text-blue-900 !shadow-2xl;
+            @apply !py-1.5 !px-3 !w-fit !text-center !text-xs !font-medium;
+            background-color: var(--bg-headerbar);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--button-radius);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
 
         .dock-icon {
-            @apply size-14 3xl:size-20 cursor-pointer;
+            @apply size-14 3xl:size-20 cursor-pointer transition-colors;
+            border-radius: var(--button-radius);
+
+            /* Remove transform-based hover effects to avoid conflicts with GSAP */
+            &:active {
+                opacity: 0.8;
+            }
 
             img {
                 @apply object-cover object-center;
@@ -99,30 +193,76 @@ body {
     }
 
     #window-controls {
-        @apply flex gap-2;
+        @apply flex gap-1.5;
+
+        .close,
+        .minimize,
+        .maximize {
+            @apply w-8 h-8 flex items-center justify-center cursor-pointer transition-all;
+            border-radius: var(--button-radius);
+
+            &:hover {
+                background-color: var(--hover-bg);
+            }
+        }
 
         .close {
-            @apply size-3.5 rounded-full bg-[#ff6157] cursor-pointer;
+            &:hover {
+                background-color: rgb(192, 28, 40);
+                color: white;
+            }
+
+            &::before {
+                content: '✕';
+                font-size: 14px;
+                font-weight: 600;
+                color: var(--text-secondary);
+            }
+
+            &:hover::before {
+                color: white;
+            }
         }
 
         .minimize {
-            @apply size-3.5 rounded-full bg-[#ffc030];
+            &::before {
+                content: '−';
+                font-size: 16px;
+                font-weight: 600;
+                color: var(--text-secondary);
+            }
         }
 
         .maximize {
-            @apply size-3.5 rounded-full bg-[#2acb42];
+            &::before {
+                content: '□';
+                font-size: 14px;
+                font-weight: 400;
+                color: var(--text-secondary);
+            }
         }
     }
 
     #window-header {
-        @apply flex items-center justify-between px-4 py-3 rounded-t-lg bg-gray-50 border-b border-gray-200 select-none text-sm text-gray-400;
+        @apply flex items-center justify-between px-3 select-none text-sm font-medium;
+        background-color: var(--bg-headerbar);
+        border-bottom: 1px solid var(--border-color);
+        color: var(--text-primary);
+        height: 46px;
+        border-top-left-radius: var(--window-radius);
+        border-top-right-radius: var(--window-radius);
     }
 
     #safari {
-        @apply w-4xl absolute top-40 left-2/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+        @apply w-4xl absolute top-40 left-2/12 overflow-hidden;
+        background-color: var(--bg-window);
+        border-radius: var(--window-radius);
+        box-shadow: var(--window-shadow);
 
         .search {
-            @apply flex items-center gap-3 w-2/3 bg-white border border-gray-300 rounded-lg px-3 py-2;
+            @apply flex items-center gap-3 w-2/3 rounded-lg px-3 py-2;
+            background-color: var(--bg-window);
+            border: 1px solid var(--border-color);
 
             input {
                 @apply placeholder:text-gray-400;
@@ -130,7 +270,8 @@ body {
         }
 
         .blog {
-            @apply bg-white p-10 max-w-3xl mx-auto;
+            @apply p-10 max-w-3xl mx-auto;
+            background-color: var(--bg-window);
 
             h2 {
                 @apply text-xl font-bold text-pink-600 mb-10;
@@ -147,11 +288,13 @@ body {
                     @apply col-span-10 space-y-3;
 
                     p {
-                        @apply text-xs text-gray-500;
+                        @apply text-xs;
+                        color: var(--text-secondary);
                     }
 
                     h3 {
-                        @apply font-semibold text-base text-gray-800;
+                        @apply font-semibold text-base;
+                        color: var(--text-primary);
                     }
 
                     a {
@@ -163,10 +306,14 @@ body {
     }
 
     #terminal {
-        @apply w-xl absolute top-32 left-1/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+        @apply w-xl absolute top-32 left-1/12 overflow-hidden;
+        background-color: var(--bg-window);
+        border-radius: var(--window-radius);
+        box-shadow: var(--window-shadow);
 
         h2 {
             @apply font-bold text-sm text-center w-full;
+            color: var(--text-primary);
         }
 
         .techstack {
@@ -209,14 +356,19 @@ body {
     }
 
     #contact {
-        @apply max-w-2xl absolute top-60 left-5/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+        @apply max-w-2xl absolute top-60 left-5/12 overflow-hidden;
+        background-color: var(--bg-window);
+        border-radius: var(--window-radius);
+        box-shadow: var(--window-shadow);
 
         h2 {
             @apply font-bold text-sm text-center w-full;
+            color: var(--text-primary);
         }
 
         h3 {
             @apply text-xl font-semibold;
+            color: var(--text-primary);
         }
 
         ul {
@@ -237,21 +389,33 @@ body {
     }
 
     #photos {
-        @apply max-w-3xl absolute top-96 left-1/2 -translate-y-1/2 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+        @apply max-w-3xl absolute top-96 left-1/2 -translate-y-1/2 overflow-hidden;
+        background-color: var(--bg-window);
+        border-radius: var(--window-radius);
+        box-shadow: var(--window-shadow);
 
         .sidebar {
-            @apply w-3/12 flex-none bg-gray-50 border-r border-gray-200 flex flex-col p-5;
+            @apply w-3/12 flex-none border-r flex flex-col p-5;
+            background-color: var(--bg-sidebar);
+            border-color: var(--border-color);
 
             h2 {
-                @apply text-xs font-medium text-gray-400 mb-1;
+                @apply text-xs font-medium mb-1;
+                color: var(--text-tertiary);
             }
 
             ul {
                 li {
-                    @apply flex space-y-1 items-center gap-2 px-3 py-2 rounded-md cursor-pointer transition-colors;
+                    @apply flex space-y-1 items-center gap-2 px-3 py-2 cursor-pointer transition-colors;
+                    border-radius: var(--button-radius);
 
                     &:first-child {
-                        @apply bg-blue-100 text-blue-700;
+                        background-color: var(--accent-color);
+                        color: white;
+                    }
+
+                    &:not(:first-child):hover {
+                        background-color: var(--hover-bg);
                     }
 
                     img {
@@ -297,44 +461,61 @@ body {
     }
 
     #resume {
-        @apply w-fit h-fit absolute top-16 left-7/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+        @apply w-fit h-fit absolute top-16 left-7/12 overflow-hidden;
+        background-color: var(--bg-window);
+        border-radius: var(--window-radius);
+        box-shadow: var(--window-shadow);
 
         #window-header {
             h2 {
                 @apply font-bold text-sm text-center flex-1;
+                color: var(--text-primary);
             }
         }
     }
 
     #finder {
-        @apply absolute w-3xl left-40 top-20 shadow-2xl drop-shadow-2xl overflow-hidden rounded-xl;
+        @apply absolute w-3xl left-40 top-20 overflow-hidden;
+        border-radius: var(--window-radius);
+        box-shadow: var(--window-shadow);
 
         .sidebar {
-            @apply w-48 bg-gray-50 border-r border-gray-200 flex flex-col p-5 space-y-3;
+            @apply w-48 border-r flex flex-col p-5 space-y-3;
+            background-color: var(--bg-sidebar);
+            border-color: var(--border-color);
 
             h3 {
-                @apply text-xs font-medium text-gray-400 mb-1;
+                @apply text-xs font-medium mb-1;
+                color: var(--text-tertiary);
             }
 
             ul {
                 @apply space-y-1;
 
                 .active {
-                    @apply bg-blue-100 text-blue-700;
+                    background-color: var(--accent-color);
+                    color: white;
                 }
 
                 .not-active {
-                    @apply text-gray-700 hover:bg-gray-200;
+                    @apply transition-colors;
+                    color: var(--text-primary);
+
+                    &:hover {
+                        background-color: var(--hover-bg);
+                    }
                 }
 
                 li {
-                    @apply flex items-center gap-2 px-3 py-2 rounded-md cursor-pointer transition-colors;
+                    @apply flex items-center gap-2 px-3 py-2 cursor-pointer transition-colors;
+                    border-radius: var(--button-radius);
                 }
             }
         }
 
         .content {
-            @apply flex-1 p-8 bg-white max-w-2xl relative;
+            @apply flex-1 p-8 max-w-2xl relative;
+            background-color: var(--bg-window);
 
             li {
                 @apply absolute flex items-center flex-col gap-3;
@@ -345,30 +526,40 @@ body {
 
                 p {
                     @apply text-sm text-center font-medium w-40;
+                    color: var(--text-primary);
                 }
             }
         }
     }
 
     #txtfile {
-        @apply w-md absolute top-36 right-32 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+        @apply w-md absolute top-36 right-32 overflow-hidden;
+        background-color: var(--bg-window);
+        border-radius: var(--window-radius);
+        box-shadow: var(--window-shadow);
 
         h2 {
             @apply font-bold text-sm text-center w-full;
+            color: var(--text-primary);
         }
     }
 
     #imgfile {
-        @apply w-xl absolute top-40 left-2/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+        @apply w-xl absolute top-40 left-2/12 overflow-hidden;
+        background-color: var(--bg-window);
+        border-radius: var(--window-radius);
+        box-shadow: var(--window-shadow);
 
         #window-header {
             p {
-                @apply font-bold text-[#5f6266];
+                @apply font-bold;
+                color: var(--text-secondary);
             }
         }
 
         .preview {
-            @apply p-2 bg-gray-200 max-h-[70vh];
+            @apply p-2 max-h-[70vh];
+            background-color: var(--bg-gray-medium);
 
             img {
                 @apply w-full h-fit object-contain object-center;

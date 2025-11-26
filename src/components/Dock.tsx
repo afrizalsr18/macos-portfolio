@@ -27,7 +27,7 @@ const Dock = () => {
                 gsap.to(icon, {
                     scale: 1 + 0.25 * intensity,
                     y: -15 * intensity,
-                    duration: 0.2,
+                    duration: 0.1,
                     ease: 'power1.out'
                 })
             })
@@ -87,7 +87,7 @@ const Dock = () => {
                             onClick={() => toggleApp({ id: id as WindowKey, canOpen })}
                         >
                             <img
-                                src={`/images/${icon}`}
+                                src={`/icons/${icon}`}
                                 alt={name}
                                 loading='lazy'
                                 className={canOpen ? '' : 'opacity-50'}
