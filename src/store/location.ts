@@ -4,13 +4,14 @@ import { locations } from "#constants"
 
 const DEFAULT_LOCATION = locations.work
 
-interface Location {
+export interface Location {
     id: number;
     type: string;
     name: string;
     icon: string;
     kind: string;
     children?: any[];
+    [key: string]: any;
 }
 
 interface LocationStore {
