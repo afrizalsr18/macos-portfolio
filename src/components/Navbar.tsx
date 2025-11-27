@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { navIcons, navLinks } from '#constants'
 import useWindowStore from '#store/window'
 import type { WindowKey } from '#store/window'
-import Calendar from './Calendar'
+// import Calendar from './Calendar'
 
 interface NavbarProps {
   darkMode: {
