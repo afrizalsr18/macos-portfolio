@@ -14,11 +14,6 @@ const navLinks = [
         name: "Resume",
         type: "resume",
     },
-    {
-        id: 5,
-        name: "Bug Squasher",
-        type: "bugSquasher",
-    },
 ];
 
 const navIcons = [
