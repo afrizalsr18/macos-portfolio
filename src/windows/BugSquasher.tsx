@@ -490,7 +490,7 @@ const BugSquasher = () => {
     <>
       <div id="window-header">
         <WindowControls target='BugSquasher' />
-        <h2>Bug Squasher</h2>
+        <h2 className="font-bold text-sm text-center w-full">Bug Squasher</h2>
       </div>
       <div style={{
         width: '100%',

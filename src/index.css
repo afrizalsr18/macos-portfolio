@@ -127,19 +127,45 @@ body {
         }
 
         time {
-            @apply text-sm font-medium;
+            @apply text-sm font-medium transition-all px-2 py-1 rounded;
             color: var(--text-primary);
+
+            &:hover {
+                background-color: var(--hover-bg);
+            }
         }
+    }
+
+    .calendar-popup {
+        position: absolute;
+        top: 10%;
+        left: 90%;
+        /* transform: translate(-50%, -50%); */
     }
 }
 
 @layer components {
     .icon {
-        @apply p-2 hover:cursor-default transition-all;
+        @apply p-2 hover:cursor-default transition-all size-8;
         border-radius: var(--button-radius);
 
         &:hover {
             background-color: var(--icon-hover-bg);
+        }
+    }
+
+    .icon-hover {
+        filter: brightness(0) saturate(100%);
+        transition: filter 0.2s ease;
+    }
+
+    [data-theme="dark"] .icon-hover {
+        filter: brightness(0) saturate(100%) invert(100%);
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) .icon-hover {
+            filter: brightness(0) saturate(100%) invert(100%);
         }
     }
 
@@ -291,7 +317,7 @@ body {
                         @apply absolute flex items-center flex-col gap-3;
 
                         img {
-                            @apply object-contain object-center size-16 relative group-hover:scale-105;
+                            @apply object-contain object-center size-20 relative group-hover:scale-105;
                         }
 
                         p {
@@ -306,7 +332,7 @@ body {
 }
 
 #terminal {
-    @apply w-xl absolute top-32 left-1/12 overflow-hidden;
+    @apply w-3xl absolute top-32 left-1/12 overflow-hidden;
     background-color: var(--bg-window);
     border-radius: var(--window-radius);
     box-shadow: var(--window-shadow);
@@ -318,6 +344,7 @@ body {
 
     .techstack {
         @apply text-sm font-roboto p-5;
+        color: var(--text-primary);
 
         .label {
             @apply flex items-center ms-10 mt-7;
@@ -337,6 +364,10 @@ body {
 
                 ul {
                     @apply flex items-center gap-3;
+
+                    li {
+                        color: var(--text-primary);
+                    }
                 }
             }
         }
@@ -349,6 +380,14 @@ body {
 
                 svg {
                     @apply w-5 me-5;
+                }
+            }
+
+            .footnote-flag {
+                color: var(--text-primary);
+
+                .flag-icon {
+                    fill: currentColor;
                 }
             }
         }

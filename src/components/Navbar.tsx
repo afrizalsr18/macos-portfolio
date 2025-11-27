@@ -1,7 +1,9 @@
 import dayjs from 'dayjs'
+import { useState } from 'react'
 import { navIcons, navLinks } from '#constants'
 import useWindowStore from '#store/window'
 import type { WindowKey } from '#store/window'
+import Calendar from './Calendar'
 
 interface NavbarProps {
   darkMode: {
@@ -16,6 +18,7 @@ interface NavbarProps {
 
 const Navbar = ({ darkMode }: NavbarProps) => {
   const { openWindow } = useWindowStore()
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false)
 
   const getDarkModeIcon = () => {
     if (darkMode.theme === 'dark') return '🌙';
@@ -27,13 +30,11 @@ const Navbar = ({ darkMode }: NavbarProps) => {
     <nav>
       {/* left side navbar */}
       <div>
-        {/* <img src='../../public/images/logo.svg' /> */}
-        <p className="font-bold">Zal's Portfolio</p>
         <ul>
+          <p className='font-bold'>Zal's Portfolio</p>
           {navLinks.map(({ id, name, type }) => (
             <li key={id} onClick={() => openWindow(type as WindowKey)}>
               <p>{name}</p>
-
             </li>
           ))}
         </ul>
@@ -50,8 +51,19 @@ const Navbar = ({ darkMode }: NavbarProps) => {
             <span className='icon text-xl'>{getDarkModeIcon()}</span>
           </li>
         </ul>
-        <time>{dayjs().format("ddd MMM D h:mm A")}</time>
+        <time
+          onClick={() => setIsCalendarOpen(!isCalendarOpen)}
+          className="cursor-pointer"
+        >
+          {dayjs().format("ddd MMM D h:mm A")}
+        </time>
       </div>
+
+      {/* Calendar popup */}
+      {/* <Calendar
+        isOpen={isCalendarOpen}
+        onClose={() => setIsCalendarOpen(false)}
+      /> */}
     </nav>
   )
 }
